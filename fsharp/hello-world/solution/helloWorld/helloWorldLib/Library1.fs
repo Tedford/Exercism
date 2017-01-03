@@ -1,0 +1,1 @@
+﻿let func = "Hello, World!"
