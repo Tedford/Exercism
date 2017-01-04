@@ -1,8 +1,9 @@
 ﻿module Accumulate
 
 let accumulate op collection= 
-    let rec apply collection'=
+    let rec apply result collection'=
         match collection' with
-        | [] -> []
-        | head :: tail-> (op head) :: apply tail
-    apply collection
+        | [] -> result
+        | head :: tail-> apply (op head :: result) tail
+    apply [] collection
+    |> List.rev
