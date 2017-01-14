@@ -8,8 +8,9 @@ let verse number =
     | x -> "No more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n"
 
 let verses start stop = 
-    [start..stop]
-    |> List.map(fun line -> verse line)
-    |> System.String.Join System.String.Empty
+    [stop..start]
+    |> List.map (fun line -> (verse line) + "\n")
+    |> List.rev
+    |> System.String.Concat
 
-let sing = []
+let sing = verses 99 0 
