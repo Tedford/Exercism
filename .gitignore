@@ -251,3 +251,26 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+### PYTHON
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# Distribution / packaging
+.Python
+
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
