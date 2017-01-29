@@ -11,8 +11,8 @@ let charToPlant c =
     | _ -> failwith (sprintf "Unknown plant %c detected" c)
 
 let parseFlowerMap (row:string) =
-    row.ToCharArray()
-    |> Array.toList
+    row
+    |> Seq.toList
     |> List.map charToPlant
     |> List.chunkBySize 2
 
