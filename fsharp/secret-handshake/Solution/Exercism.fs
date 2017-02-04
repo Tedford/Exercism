@@ -2,15 +2,18 @@
 
 
 let handshake input =
-    let reversed = input &&& 0b00010000y = 0b00010000y
-    let actions = input &&& 0b00001111y
-    let s = actions.ToString()
-    [1..s.Length]
-    |> List.fold (fun code index -> 
-         match System.Math.Pow(10.0, float index) with
-            | 1.0 -> "wink" :: code
-            | 10.0 -> "double blink" :: code
-            | 100.0 -> "close your eyes" :: code
-            | 1000.0 -> "jump" :: code
-            | _ -> code
-    ) []
+    let reversed = input &&& 16 = 16
+    let c = 
+        [0..3]
+        |> List.fold (fun code index -> 
+            let mask = pown 2 index
+            match  input &&& mask with
+            | 1 -> "wink" :: code
+            | 2 -> "double blink" :: code
+            | 4 -> "close your eyes" :: code
+            | 8 -> "jump" :: code
+            | x -> code
+        ) []
+    match reversed with
+    | true -> c 
+    | false -> c |> List.rev 
