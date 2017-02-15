@@ -2,7 +2,7 @@
 
 
 let objects = 
-    [
+    [|
         "house that Jack built."; 
         "malt"; 
         "rat";
@@ -15,10 +15,10 @@ let objects =
         "rooster that crowed in the morn";
         "farmer sowing his corn";
         "horse and the hound and the horn"
-    ]
+    |]
 
 let verbs = 
-    [
+    [|
         "lay in";
         "ate";
         "killed";
@@ -30,7 +30,7 @@ let verbs =
         "woke";
         "kept";
         "belonged to"
-    ]
+    |]
 
 let intro = sprintf "This is the %s"
 let activity =sprintf  "that %s the %s"
@@ -43,7 +43,7 @@ let createStanza stanza =
     |> String.concat "\n"
 
 let rhyme =  
-   [0..(List.length objects - 1)]
+   [0..(Array.length objects - 1)]
    |> List.map createStanza
    |> String.concat "\n\n"
     
