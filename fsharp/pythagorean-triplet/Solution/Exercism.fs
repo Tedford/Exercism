@@ -3,12 +3,8 @@
 let triplet a b c = (a,b,c)
 
 let isPythagorean (a,b,c) =
-    let sorted = [| a; b; c|] |> Array.sort 
-    let a' = sorted.[0]
-    let b' = sorted.[1]
-    let c' = sorted.[2]
-
-    pown a' 2 + pown b' 2 = pown c' 2
+   let [|a';b';c'|] = [| a; b; c|] |> Array.sort 
+   pown a' 2 + pown b' 2 = pown c' 2
 
 let pythagoreanTriplets low high = 
     [low .. high - 2]
