@@ -14,11 +14,6 @@ public class BankAccount
             AssertOpen();
             return _balance;
         }
-        set
-        {
-            AssertOpen();
-            _balance = value;
-        }
     }
 
     private void AssertOpen()
