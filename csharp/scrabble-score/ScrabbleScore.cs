@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Collections.Generic;
 
 public static class Scrabble
@@ -38,10 +38,7 @@ public static class Scrabble
         int score = 0;
         if (!string.IsNullOrWhiteSpace(input))
         {
-            foreach (var c in input.ToLower())
-            {
-                score += _scores[c];
-            }
+            score = input.ToLower().Sum(c => _scores[c]);
         }
         return score;
     }
