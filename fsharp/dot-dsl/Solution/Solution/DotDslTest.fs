@@ -13,7 +13,6 @@ let ``Empty graph`` () =
     Assert.That(attrs g, Is.Empty)
     
 [<Test>]
-[<Ignore("Remove to run test")>]
 let ``Graph with one node`` () =
     let g = graph [
                 node "a" []
@@ -24,7 +23,6 @@ let ``Graph with one node`` () =
     Assert.That(attrs g, Is.Empty)
     
 [<Test>]
-[<Ignore("Remove to run test")>]
 let ``Graph with one node with keywords`` () =    
     let g = graph [
                 node "a" [("color", "green")]
@@ -35,7 +33,6 @@ let ``Graph with one node with keywords`` () =
     Assert.That(attrs g, Is.Empty)
 
 [<Test>]
-[<Ignore("Remove to run test")>]
 let ``Graph with one edge`` () =    
     let g = graph [
                 edge "a" "b" []
@@ -46,7 +43,6 @@ let ``Graph with one edge`` () =
     Assert.That(attrs g, Is.Empty)
 
 [<Test>]
-[<Ignore("Remove to run test")>]
 let ``Graph with one attribute`` () = 
     let g = graph [
                 attr "foo" "1"
@@ -57,7 +53,6 @@ let ``Graph with one attribute`` () =
     Assert.That(attrs g, Is.EqualTo([attr "foo" "1"]))
 
 [<Test>]
-[<Ignore("Remove to run test")>]
 let ``Graph with attributes`` () =    
     let g = graph [
                 attr "foo" "1"

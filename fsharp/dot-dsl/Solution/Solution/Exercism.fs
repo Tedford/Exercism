@@ -1,44 +1,45 @@
 ﻿module DotDsl
 
 
-type Edge = {
-    Node1: string;
-    Node2: string;
-    Properties: string list;
-}
-
-type Node = {
-    Name: string;
-    Properties: List<string * string>;
-}
-
-type Attribute = {
-    Key: string;
-    Value: string;
-}
-
+type Element = 
+    | Edge of Node1:string * Node2:string * Properties: (string *string) list
+    | Node of Name:string * Properties : (string * string) list
+    | Attribute of Key : string * Value : string
 
 type Graph = {
-    Edges: Edge list;
-    Nodes: Node list;
-    Attributes: Attribute list
+    Edges: Element list;
+    Nodes: Element list;
+    Attributes: Element list;
 }
+
+let sortAttributes = function
+    | Attribute(k, _) -> k
+    | _ -> ""
+
+let sortNodes = function
+    | Node(n, _)-> n
+    | _ -> ""
+
+let sortEdges = function
+    | Edge(n1, n2, _) -> n1 + n2
+    | _ -> ""
 
 let graph input = 
     {
-        Edges = [];
-        Nodes = [];
-        Attributes = [];
+        Edges = input |> List.choose (fun s -> match s with | Edge(_,_,_) as e -> Some(e) | _ -> None )  |> List.sortBy sortEdges
+        Nodes = input |> List.choose (fun s -> match s with | Node(_,_) as n -> Some(n) | _ -> None ) |> List.sortBy sortNodes
+        Attributes = input |> List.choose (fun s -> match s with | Attribute(_,_) as a -> Some(a) | _ -> None ) |> List.sortBy sortAttributes
     }
 
-let edges graph = []
 
-let nodes graph = []
+let edges graph = graph.Edges
+   
+let nodes graph = graph.Nodes
 
-let attrs graph = []
+let attrs graph = graph.Attributes
 
-let node name (props:List<string*string>) = { Name = name; Properties = props}
+let node name props = Node(name, props)
 
-let edge node1 node2 props = [] 
+let edge node1 node2 props = Edge(node1, node2, props) 
 
-let attr key value = []
+let attr key value = Attribute(key, value) 
