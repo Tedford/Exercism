@@ -3,19 +3,17 @@
 open System
 
 
-let mergeResults (results:seq<char*int> []) =
+let mergeResults (results:seq<char> []) =
     results
     |> Seq.collect id
-    |> Seq.groupBy fst
-    |> Seq.map (fun (key, counts) -> (key, counts |> Seq.sumBy snd ))
+    |> Seq.groupBy id
+    |> Seq.map (fun (key, occurances) -> (key, Seq.length occurances))
     |> Map.ofSeq
 
 
 let analyzeText phrase =
     phrase.ToString().ToLowerInvariant()
     |> Seq.filter Char.IsLetter
-    |> Seq.groupBy id
-    |> Seq.map (fun (key, values)-> (key, Seq.length values))
 
 let asyncAnalyzeText phrase =
     async { return analyzeText phrase }
