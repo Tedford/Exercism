@@ -23,11 +23,11 @@ public class Garden
 
     public Garden(IEnumerable<string> children, string windowSills)
     {
-       var rows = windowSills.ToLower().Split('\n');
+        var rows = windowSills.ToLower().Split('\n');
 
         _plants = children.OrderBy(i => i)
-                .Select((c, i) => new { Child = c, Plants = rows.SelectMany(r => GetPlant(r, i * 2)).Where(e => e != default(char)).Select(p => Lookup[p]) })
-                .ToDictionary(t => t.Child, t => t.Plants);
+                          .Select((c, i) => new { Child = c, Plants = rows.SelectMany(r => GetPlant(r, i * 2)).Where(e => e != default(char)).Select(p => Lookup[p]) })
+                          .ToDictionary(t => t.Child, t => t.Plants);
     }
 
     private IEnumerable<char> GetPlant(string row, int index)
