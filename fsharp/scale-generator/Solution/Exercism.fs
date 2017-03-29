@@ -90,27 +90,42 @@ let getMinorHalfStep = function
     | _ as x -> failwith (sprintf "getMinorHalfStep - %A is an unexpected note" x)
 
 
-
 let getNonDiatonicWholeStep = function
+    | "A" -> "B"
+    | "B" -> "C#"
+    | "C#" -> "D#"
+    | "D" -> "E"
+    | "D#" -> "F"
+    | "E" -> "F#"
+    | "F" -> "G"
+    | "G" -> "A"
     | _ as x -> failwith (sprintf "getNonDiatonicWholeStep - %A is an unexpected note" x)
 
 
-let getNonDiatonicWHalfStep = function
-    | _ as x -> failwith (sprintf "getNonDiatonicWHalfStep - %A is an unexpected note" x)
+let getNonDiatonicHalfStep = function
+    | "A" -> "Bb"
+    | "Db" -> "D"
+    | "E" -> "F"
+    | "F" -> "F#"
+    | "F#" -> "G"
+    | "G" -> "G#"
+    | _ as x -> failwith (sprintf "getNonDiatonicHalfStep - %A is an unexpected note" x)
 
-let toString chars = chars |> Array.ofList |> String
+let toString = function
+    | head :: tail -> head.ToString().ToUpper() + (tail |> Array.ofList |> String)
+    | _ -> failwith "Empty string provided"
 
-let determineKey = function
-    | x when (toString x).Contains("A") -> toString x, NonDiatnoic
-    | x :: xs when Char.IsLower(x) -> (sprintf "%s%s" (x.ToString().ToUpper()) (toString xs)), Minor
+let determineKey intervals = function
+    | x when intervals.ToString().Contains("A") -> toString x, NonDiatnoic
+    | x :: xs when Char.IsLower(x) -> toString (x :: xs), Minor
     | _ as x -> toString x, Major
 
 let pitches (startingNote:string) intervals= 
 
-    let note, key = startingNote |> Seq.toList |> determineKey 
+    let note, key = startingNote |> Seq.toList |> determineKey intervals
 
-    let getWholeStep = if key = Minor then getMinorWholeStep else getMajorWholeStep
-    let getHalfStep = if key = Minor then getMinorHalfStep else getMajorHalfStep
+    let getWholeStep = match key with Major -> getMajorWholeStep | Minor -> getMinorWholeStep | NonDiatnoic -> getNonDiatonicWholeStep
+    let getHalfStep =  match key with Major -> getMajorHalfStep | Minor -> getMinorHalfStep | NonDiatnoic -> getNonDiatonicHalfStep
 
     let scale = 
         intervals 
