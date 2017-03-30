@@ -11,7 +11,6 @@ let surprise = function
     | 5 -> Some("What a hog, to swallow a dog!")
     | 6 -> Some("Just opened her throat and swallowed a goat!")
     | 7 -> Some("I don't know how she swallowed a cow!")
-    | 8 -> Some("She's dead, of course!")
     | _ as x -> None
 
 let litany verse = 
@@ -23,6 +22,8 @@ let litany verse =
     |> List.map (fun n -> phraseBuilder n |> Some)
     |> List.rev
 
+let condense lines = lines |> Seq.choose id |> String.concat "\n"
+
 let whileAlive verse =
     seq {
         yield preamble verse
@@ -30,21 +31,19 @@ let whileAlive verse =
         yield! litany  verse
         yield Some("I don't know why she swallowed the fly. Perhaps she'll die.")
     }
-    |> Seq.choose id
-    |> String.concat "\n"
+    |> condense
 
 let whenDead =
     seq {
         yield preamble 8
         yield Some("She's dead, of course!")
     }
-    |> Seq.choose id
-    |> String.concat "\n"
+    |> condense
 
 let verse number =
     match number with
     | _ as x when x >=1 && x <8 -> whileAlive x
     | 8 -> whenDead
-    | _ -> ""
+    | _ -> failwith "Argument out of range"
     
-let song = ([1..9] |> List.map verse |> String.concat "\n\n").TrimEnd()
+let song = [1..8] |> List.map verse |> String.concat "\n\n"
