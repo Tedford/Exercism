@@ -5,32 +5,58 @@ public static class BinarySearch
 {
     public static int Find(int[] input, int value)
     {
-	input = input ?? new int[0];
-	var index = 0;
+        if (input == null || input.Length == 0)
+        {
+            return -1;
+        }
 
-	while(input.Any())
-	{
-		int current = input.Length / 2;
-		if (input[current] < value)
-		{
-			int size = input.Length - Math.Max(current,1);
-			var array2 = new int[size];
-			Array.Copy(input, current, array2, 0, size);
-			input = array2;
-			index += current;
-		}
-		else if (input[current] > value)
-		{
-			var array2 = new int[current];
-			Array.Copy(input, array2, current);
-			input = array2;
-		}
-		else 
-		{
-			return index + current;
-		}
-	}
+        var start = 0;
+        var end = Math.Max(input.Length - 1, 0);
+        int current = 0;
 
-	return -1;
+        while (start <= end)
+        {
+            current = (start + end) / 2;
+
+			// handle convergence
+            if (end - start == 1)
+            {
+                if (input[end] == value)
+                {
+					current = end;
+					end = -1;
+                    // return end;
+                }
+                else if (input[start] == value)
+                {
+					current = start;
+					end = -1;
+                    // return start;
+                }
+                else
+                {
+					current =-1;
+					end = -1;
+                    // break;
+                }
+            }
+            else if (input[current] < value)
+            {
+                start = current;
+            }
+            else if (input[current] > value)
+            {
+                end = current;
+            }
+			else {
+				end =-1;
+			}
+            // else
+            // {
+            //     return current;
+            // }
+        }
+
+        return current;
     }
 }
