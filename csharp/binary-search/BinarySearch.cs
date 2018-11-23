@@ -18,26 +18,23 @@ public static class BinarySearch
         {
             current = (start + end) / 2;
 
-			// handle convergence
+            // handle convergence
             if (end - start == 1)
             {
                 if (input[end] == value)
                 {
-					current = end;
-					end = -1;
-                    // return end;
+                    current = end;
+                    end = -1;
                 }
                 else if (input[start] == value)
                 {
-					current = start;
-					end = -1;
-                    // return start;
+                    current = start;
+                    end = -1;
                 }
                 else
                 {
-					current =-1;
-					end = -1;
-                    // break;
+                    current = -1;
+                    end = -1;
                 }
             }
             else if (input[current] < value)
@@ -48,13 +45,10 @@ public static class BinarySearch
             {
                 end = current;
             }
-			else {
-				end =-1;
-			}
-            // else
-            // {
-            //     return current;
-            // }
+            else
+            {
+                end = -1;
+            }
         }
 
         return current;
