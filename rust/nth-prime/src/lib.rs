@@ -7,7 +7,7 @@ pub fn nth(n: u32) -> u32 {
 
     while found <= n
     {
-        let mut candidate = prime_0 + i;
+        let candidate = prime_0 + i;
         if is_prime(candidate)
         {
             last_prime = candidate;
