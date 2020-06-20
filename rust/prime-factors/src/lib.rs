@@ -21,7 +21,7 @@ pub fn factors(n: u64) -> Vec<u64> {
     // }
     // reduce( Vec::<u64>::new(), 2u64, n )
 
-    while !(factor > remainder) {
+    while factor <= remainder {
         if remainder % factor == 0 {
             acc.push(factor);
             remainder /= factor;
