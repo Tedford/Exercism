@@ -15,36 +15,18 @@ impl HighScores {
     }
 
     pub fn latest(&self) -> Option<u32> {
-        if self.scores.is_empty() {
-            None
-        } else {
-            Some(self.scores[self.scores.len() - 1])
-        }
+        self.scores.last().cloned()
     }
 
     pub fn personal_best(&self) -> Option<u32> {
-        if self.scores.is_empty() {
-            None
-        } else {
-            let mut scores = self.scores.clone();
-            scores.sort();
-            scores.reverse();
-            Some(scores[0])
-        }
+        self.scores.iter().max().cloned()
     }
 
     pub fn personal_top_three(&self) -> Vec<u32> {
-        if self.scores.is_empty() {
-            Vec::<u32>::new()
-        } else {
-            let mut scores = self.scores.clone();
-            scores.sort();
-            scores.reverse();
-            let mut top3 = Vec::<u32>::new();
-            for i in scores.as_slice().iter().take(3) {
-                top3.push(*i);
-            }
-            top3
-        }
+        let mut top3 = self.scores.clone();
+        top3.sort();
+        top3.reverse();
+        top3.truncate(3);
+        top3
     }
 }
