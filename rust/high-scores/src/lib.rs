@@ -1,27 +1,50 @@
 #[derive(Debug)]
-pub struct HighScores;
+pub struct HighScores {
+    scores: Vec<u32>,
+}
 
 impl HighScores {
     pub fn new(scores: &[u32]) -> Self {
-        unimplemented!(
-            "Construct a HighScores struct, given the scores: {:?}",
-            scores
-        )
+        HighScores {
+            scores: scores.to_vec(),
+        }
     }
 
     pub fn scores(&self) -> &[u32] {
-        unimplemented!("Return all the scores as a slice")
+        self.scores.as_slice()
     }
 
     pub fn latest(&self) -> Option<u32> {
-        unimplemented!("Return the latest (last) score")
+        if self.scores.is_empty() {
+            None
+        } else {
+            Some(self.scores[self.scores.len() - 1])
+        }
     }
 
     pub fn personal_best(&self) -> Option<u32> {
-        unimplemented!("Return the highest score")
+        if self.scores.is_empty() {
+            None
+        } else {
+            let mut scores = self.scores.clone();
+            scores.sort();
+            scores.reverse();
+            Some(scores[0])
+        }
     }
 
     pub fn personal_top_three(&self) -> Vec<u32> {
-        unimplemented!("Return 3 highest scores")
+        if self.scores.is_empty() {
+            Vec::<u32>::new()
+        } else {
+            let mut scores = self.scores.clone();
+            scores.sort();
+            scores.reverse();
+            let mut top3 = Vec::<u32>::new();
+            for i in scores.as_slice().iter().take(3) {
+                top3.push(*i);
+            }
+            top3
+        }
     }
 }
