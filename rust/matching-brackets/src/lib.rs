@@ -17,8 +17,7 @@ pub fn brackets_are_balanced(string: &str) -> bool {
                 true
             }
             '}' | ']' | ')' => {
-                let expected = buffer.pop();
-                expected.is_some() && expected.unwrap() == c
+                buffer.pop() == Some(c)
             }
             _ => true,
         };
