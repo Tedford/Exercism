@@ -2,13 +2,30 @@
 
 open System
 
-let modifier x =
-    failwith "You need to implement this function."
+let rand = Random()
+let rolld6 = fun f -> rand.Next(1,6)
+
+type Character = {
+Strength : int;
+Dexterity: int;
+Constitution : int;
+Intelligence : int;
+Wisdom : int;
+Charisma : int;
+Hitpoints : int;
+};
+
+let modifier x = Math.Floor(((float x - 10.0) / 2.0)) |> int
 
 let ability() = 
-    failwith "You need to implement this function."
+    [|0..4|]
+    |> Array.map rolld6
+    |> Array.sortByDescending id
+    |> Array.take 3
+    |> Array.sum
 
-// TODO: define the Character type
 
 let createCharacter() =
-    failwith "You need to implement this function."
+    let con = ability()
+    let hp = 10 + (modifier con)
+    {Strength= ability();Dexterity = ability(); Constitution= con;Intelligence = ability(); Wisdom = ability(); Charisma = ability(); Hitpoints = hp}
