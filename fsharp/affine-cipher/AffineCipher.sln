@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "AffineCipher", "AffineCipher.fsproj", "{DD91CB55-8F0E-42ED-AEC0-34B77B4FCA2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD91CB55-8F0E-42ED-AEC0-34B77B4FCA2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD91CB55-8F0E-42ED-AEC0-34B77B4FCA2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD91CB55-8F0E-42ED-AEC0-34B77B4FCA2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD91CB55-8F0E-42ED-AEC0-34B77B4FCA2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50186489-8D9F-4471-A2EE-41BC7E76A909}
+	EndGlobalSection
+EndGlobal
