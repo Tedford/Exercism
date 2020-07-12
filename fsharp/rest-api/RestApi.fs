@@ -34,10 +34,10 @@ type Account = {
     Name: string;
 
     [<JsonProperty("owes")>]
-    Owes: Dictionary<string,float>
+    Owes: IDictionary<string,float>
 
     [<JsonProperty("owed_by")>]
-    Owed: Dictionary<string,float>
+    Owed: IDictionary<string,float>
 
     [<JsonProperty("balance")>]
     Balance: float;
@@ -92,7 +92,7 @@ let debitAccount borrower lender amount =
 
     if owed && (owedAmount - amount > 0.0) then
         borrower.Owed.[lender] <- owedAmount - amount
-    else
+    else 
         borrower.Owed.Remove(lender) |> ignore
 
     if owedAmount - owesAmount - amount < 0.0 then
