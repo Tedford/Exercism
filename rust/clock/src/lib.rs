@@ -17,29 +17,29 @@ impl Clock {
         } else {
             base + delta
         };
-        offset % MINUTES_PER_DAY
+        offset.rem_euclid(MINUTES_PER_DAY)
     }
 
     pub fn hours(&self) -> i32 {
-        self.offset / MINUTES_PER_HOUR
+        self.offset.div_euclid(MINUTES_PER_HOUR)
     }
 
     pub fn minutes(&self) -> i32 {
-        self.offset % MINUTES_PER_HOUR
+        self.offset.rem_euclid(MINUTES_PER_HOUR)
     }
 
     pub fn new(hours: i32, minutes: i32) -> Self {
         let h = if hours < 0 {
-            HOURS_PER_DAY + (hours % HOURS_PER_DAY)
+            HOURS_PER_DAY + hours.rem_euclid(HOURS_PER_DAY)
         } else {
-            hours % HOURS_PER_DAY
+            hours.rem_euclid(HOURS_PER_DAY)
         } + minutes / MINUTES_PER_HOUR % HOURS_PER_DAY
             + if minutes < 0 { -1 } else { 0 };
 
         let m = if minutes < 0 {
             MINUTES_PER_HOUR + (minutes % MINUTES_PER_HOUR)
         } else {
-            minutes % MINUTES_PER_HOUR
+            minutes.rem_euclid(MINUTES_PER_HOUR)
         };
 
         let offset = Self::calculate_offset(0, h * MINUTES_PER_HOUR + m);
