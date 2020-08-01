@@ -12,12 +12,11 @@ pub struct Clock {
 impl Clock {
     fn calculate_offset(base: i32, change: i32) -> i32 {
         let delta = change % MINUTES_PER_DAY;
-        let offset = if base + delta < 0 {
+        if base + delta < 0 {
             MINUTES_PER_DAY + base + delta
         } else {
             base + delta
-        };
-        offset.rem_euclid(MINUTES_PER_DAY)
+        }.rem_euclid(MINUTES_PER_DAY)
     }
 
     pub fn hours(&self) -> i32 {
@@ -29,30 +28,14 @@ impl Clock {
     }
 
     pub fn new(hours: i32, minutes: i32) -> Self {
-        let h = if hours < 0 {
-            HOURS_PER_DAY + hours.rem_euclid(HOURS_PER_DAY)
+        let offset1 = hours * MINUTES_PER_HOUR + minutes;
+
+        let offset = if offset1 < 0 {
+           MINUTES_PER_DAY + offset1
         } else {
-            hours.rem_euclid(HOURS_PER_DAY)
-        } + minutes / MINUTES_PER_HOUR % HOURS_PER_DAY
-            + if minutes < 0 { -1 } else { 0 };
-
-        let m = if minutes < 0 {
-            MINUTES_PER_HOUR + (minutes % MINUTES_PER_HOUR)
-        } else {
-            minutes.rem_euclid(MINUTES_PER_HOUR)
-        };
-
-        let offset = Self::calculate_offset(0, h * MINUTES_PER_HOUR + m);
-        let clock = Clock { offset };
-        println!(
-            "{:0>2}:{:0>2}->{:0>2}:{:0>2}",
-            hours,
-            minutes,
-            clock.hours(),
-            clock.minutes()
-        );
-
-        clock
+            offset1
+        }.rem_euclid(MINUTES_PER_DAY);
+        Clock { offset }
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
