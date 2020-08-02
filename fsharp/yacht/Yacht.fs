@@ -65,8 +65,7 @@ let score category dice =
     | FullHouse -> 
         let groups =getGroups dice |> List.map (fun (die,count) ->(getValue die, count) ) |> List.sortBy fst
         match List.length groups, List.head groups |> snd with
-        | count, cardinality when count = 2 && cardinality = 2 -> 16
-        | count, cardinality when count = 2 && cardinality = 3 -> 19
+        | count, cardinality when count = 2 && cardinality > 1 && cardinality < 4-> groups |> List.map (fun (value,count) -> value * count) |> List.sum
         | _ -> 0
     | FourOfAKind -> 
         match dice |> getGroups |> List.filter (fun (_,count) -> count > 3) |> List.sortByDescending snd with
