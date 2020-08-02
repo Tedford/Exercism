@@ -14,16 +14,11 @@ type Schedule ={
     }
 
 let parse (line:string) =
-    line.Split(";")
-    |> function 
-        | [|team1; team2; result |]-> 
-            match result with
-            | "win" -> [{Team = team1; Wins = 1; Losses = 0; Draws = 0; Points=3};{Team = team2; Wins = 0; Losses = 1; Draws = 0; Points =0;}]
-            | "loss" -> [{Team = team1; Wins = 0; Losses = 1; Draws = 0; Points=0;};{Team = team2; Wins = 1; Losses = 0; Draws = 0; Points=3;}]
-            | "draw" -> [{Team = team1; Wins = 0; Losses = 0; Draws = 1; Points=1;};{Team = team2; Wins = 0; Losses = 0; Draws = 1; Points=1;}]
-            | _ -> failwithf "%A is unrecognized game result" result
-        | _ -> failwithf "%A is not formatted as as <team>;<team>;<result>" line
-
+    match line.Split(";") with
+    | [| team1; team2; "win"|] -> [{Team = team1; Wins = 1; Losses = 0; Draws = 0; Points=3};{Team = team2; Wins = 0; Losses = 1; Draws = 0; Points =0;}]
+    | [| team1; team2; "loss"|] -> [{Team = team1; Wins = 0; Losses = 1; Draws = 0; Points=0;};{Team = team2; Wins = 1; Losses = 0; Draws = 0; Points=3;}]
+    | [| team1; team2; "draw"|] -> [{Team = team1; Wins = 0; Losses = 0; Draws = 1; Points=1;};{Team = team2; Wins = 0; Losses = 0; Draws = 1; Points=1;}]
+    | x -> failwithf "Unable to parse %A" x
 
 let condenseSchedule team games = 
     let wins = games |> List.sumBy (fun g -> g.Wins)
@@ -44,8 +39,5 @@ let tally input =
     |> List.concat 
     |> List.groupBy (fun item -> item.Team) 
     |> List.map (fun (teams, games) -> condenseSchedule teams games)
-    |> List.groupBy (fun schedule -> schedule.Points)
-    |> List.sortByDescending (fun (points,_) -> points)
-    |> List.map (fun (_, teams) -> teams |> List.sortBy( fun t -> t.Team))
-    |> List.concat
+    |> List.sortBy (fun team -> (-team.Points, team.Team))
     |> prettyPrintLeague
