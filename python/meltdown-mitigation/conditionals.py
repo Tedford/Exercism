@@ -1,5 +1,7 @@
 """ Meltdown Mitigation exercise """
-
+MAX_SAFE_TEMPERATURE = 800
+MIN_SAFE_NEUTRON_EMISSION = 500
+CRITICALITY_POINT = 500000
 
 def is_criticality_balanced(temperature, neutrons_emitted):
     """Verify criticality is balanced.
@@ -14,7 +16,7 @@ def is_criticality_balanced(temperature, neutrons_emitted):
     - The product of temperature and neutrons emitted per second is less than 500000.
     """
 
-    pass
+    return temperature < MAX_SAFE_TEMPERATURE and neutrons_emitted > MIN_SAFE_NEUTRON_EMISSION and temperature * neutrons_emitted < CRITICALITY_POINT
 
 
 def reactor_efficiency(voltage, current, theoretical_max_power):
@@ -37,7 +39,17 @@ def reactor_efficiency(voltage, current, theoretical_max_power):
     where generated power = voltage * current
     """
 
-    pass
+    percentage = voltage * current / theoretical_max_power * 100
+
+    color = "black"
+    if percentage >= 80.0:
+        color = "green"
+    elif percentage >= 60:
+        color = "orange"
+    elif percentage >= 30:
+        color = "red"
+
+    return  color  
 
 
 def fail_safe(temperature, neutrons_produced_per_second, threshold):
@@ -53,4 +65,12 @@ def fail_safe(temperature, neutrons_produced_per_second, threshold):
     - `temperature * neutrons per second` is not in the above-stated ranges ==  'DANGER'
     """
 
-    pass
+    value = temperature * neutrons_produced_per_second
+
+    state = "DANGER"
+    if  value < .9 * threshold:
+        state = "LOW"
+    elif value < 1.1 * threshold:
+        state = "NORMAL"
+
+    return state
