@@ -1,3 +1,7 @@
+"""
+accelerate baking lasagna
+"""
+
 EXPECTED_BAKE_TIME = 40
 PREPARATION_TIME = 2
 
@@ -19,7 +23,7 @@ def preparation_time_in_minutes(layers):
     :param layers: int number of layers to prepare
     :return: int the total time spent preparing the lasagna
 
-    Function that estimates the time spent in preparation based upon the size of the lasagana    
+    Function that estimates the time spent in preparation based upon the size of the lasagana
     """
     return layers * PREPARATION_TIME
 
