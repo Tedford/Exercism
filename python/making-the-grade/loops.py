@@ -1,10 +1,18 @@
+
+"""exercise"""
+FAILING = 40
+
+
 def round_scores(student_scores):
     """
     :param student_scores: list of student exam scores as float or int.
     :return: list of student scores *rounded* to nearest integer value.
     """
+    rounded = []
+    for score in student_scores:
+        rounded.append(round(score))
 
-    pass
+    return rounded
 
 
 def count_failed_students(student_scores):
@@ -12,8 +20,12 @@ def count_failed_students(student_scores):
     :param student_scores: list of integer student scores.
     :return: integer count of student scores at or below 40.
     """
+    failed = 0
+    for score in student_scores:
+        if score <= FAILING:
+            failed += 1
 
-    pass
+    return failed
 
 
 def above_threshold(student_scores, threshold):
@@ -22,8 +34,11 @@ def above_threshold(student_scores, threshold):
     :param threshold :  integer
     :return: list of integer scores that are at or above the "best" threshold.
     """
-
-    pass
+    above = []
+    for score in student_scores:
+        if score >= threshold:
+            above.append(score)
+    return above
 
 
 def letter_grades(highest):
@@ -38,8 +53,11 @@ def letter_grades(highest):
              71 <= "B" <= 85
              86 <= "A" <= 100
     """
-
-    pass
+    step = int((highest - FAILING)/4)
+    scores = []
+    for i in range(0,4):
+        scores.append(FAILING + 1 + i * step)
+    return scores
 
 
 def student_ranking(student_scores, student_names):
@@ -49,7 +67,12 @@ def student_ranking(student_scores, student_names):
      :return: list of strings in format ["<rank>. <student name>: <score>"].
      """
 
-    pass
+    rankings= []
+
+    for i, score in enumerate(student_scores):
+        rankings.append(f'{i+1}. {student_names[i]}: {score}')
+
+    return rankings
 
 
 def perfect_score(student_info):
@@ -57,4 +80,11 @@ def perfect_score(student_info):
     :param student_info: list of [<student name>, <score>] lists
     :return: first `[<student name>, 100]` or `[]` if no student score of 100 is found.
     """
-    pass
+    perfect = []
+
+    for student in student_info:
+        if student[1] == 100:
+            perfect = student
+            break
+
+    return perfect
