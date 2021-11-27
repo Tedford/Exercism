@@ -1,3 +1,6 @@
+"""exercise"""
+
+
 def create_inventory(items):
     """
 
@@ -5,7 +8,12 @@ def create_inventory(items):
     :return:  dict - the inventory dictionary.
     """
 
-    pass
+    inventory = {}
+    for item in items:
+        count = inventory.pop(item, 0)
+        inventory[item] = count+1
+
+    return inventory
 
 
 def add_items(inventory, items):
@@ -15,8 +23,11 @@ def add_items(inventory, items):
     :param items: list - list of items to update the inventory with.
     :return:  dict - the inventory dictionary update with the new items.
     """
+    for key, value in create_inventory(items).items():
+        count = inventory.pop(key, 0)
+        inventory[key] = count + value
 
-    pass
+    return inventory
 
 
 def decrement_items(inventory, items):
@@ -27,7 +38,11 @@ def decrement_items(inventory, items):
     :return:  dict - updated inventory dictionary with items decremented.
     """
 
-    pass
+    for key, value in create_inventory(items).items():
+        count = inventory.pop(key, 0)
+        inventory[key] = max(0, count-value)
+
+    return inventory
 
 
 def remove_item(inventory, item):
@@ -36,8 +51,8 @@ def remove_item(inventory, item):
     :param item: str - item to remove from the inventory.
     :return:  dict - updated inventory dictionary with item removed.
     """
-
-    pass
+    inventory.pop(item, None)
+    return inventory
 
 
 def list_inventory(inventory):
@@ -46,5 +61,4 @@ def list_inventory(inventory):
     :param inventory: dict - an inventory dictionary.
     :return: list of tuples - list of key, value pairs from the inventory dictionary.
     """
-
-    pass
+    return [item for item in list(inventory.items()) if item[1] != 0]
