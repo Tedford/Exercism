@@ -12,6 +12,9 @@ class Point:
         self.x = x
         self.y = y
 
+    def __repr__(self):
+        return 'Point({}:{})'.format(self.x, self.y)
+
     def __eq__(self, other):
         """
         :param self:
@@ -95,27 +98,24 @@ class WordSearch:
         # check diagonally right to left
         if coordinates is None:
             for row in range(0, self.rows - len(word)):
-                for offset in range(len(word),self.cols):
+                for offset in range(self.cols-1, len(word),-1):
                     if coordinates is not None:
                         break
                     letters = []
-                    for col in range(0, self.cols-len(word)):
+                    for col in range(0, min(offset,self.rows - row-1)+1):
                         letters.append(self.puzzle[row+col][offset-col])
                     text = ''.join(letters)
                     rev = text[::-1]
 
                     if word in text:
-                        p0 = Point(offset,row)
-                        p1 = Point(p0.x +len(word) -1,p0.y+len(word)-1)
+                        p0 = Point(offset-text.find(word),row+text.find(word))
+                        p1 = Point(p0.x -len(word) +1,p0.y+len(word)-1)
                         coordinates = (p0, p1)
                     elif word in rev:
-                        p1 = Point(len(rev) - rev.index(word) + offset - 1,len(text) - rev.index(word) + row - 1)
-                        p0 = Point(p1.x - len(word)+1,p1.y-len(word)+1)
+                        p1 = Point(rev.index(word),len(text) - rev.index(word) + row - 1)
+                        p0 = Point(p1.x + len(word)-1,p1.y-len(word)+1)
+                        coordinates = (p1, p0)
+
             row += 1
 
-            
-                 
-                     
-                
-                    
         return coordinates
