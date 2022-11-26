@@ -1,30 +1,58 @@
 # Bob
 
-Bob is a lackadaisical teenager. In conversation, his responses are very limited.
+Welcome to Bob on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
 
-Bob answers 'Sure.' if you ask him a question.
+## Instructions
 
-He answers 'Whoa, chill out!' if you yell at him.
+Bob is a lackadaisical teenager.
+In conversation, his responses are very limited.
 
-He says 'Fine. Be that way!' if you address him without actually saying
-anything.
+Bob answers 'Sure.' if you ask him a question, such as "How are you?".
+
+He answers 'Whoa, chill out!' if you YELL AT HIM (in all capitals).
+
+He answers 'Calm down, I know what I'm doing!' if you yell a question at him.
+
+He says 'Fine. Be that way!' if you address him without actually saying anything.
 
 He answers 'Whatever.' to anything else.
 
-### Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `exercism/python/<exerciseName>` directory.
-
-For example, if you're submitting `bob.py` for the Bob exercise, the submit command would be something like `exercism submit <path_to_exercism_dir>/python/bob/bob.py`.
-
-
-For more detailed information about running tests, code style and linting,
-please see the [help page](http://exercism.io/languages/python).
+Bob's conversational partner is a purist when it comes to written communication and always follows normal rules regarding sentence punctuation in English.
 
 ## Source
 
-Inspired by the 'Deaf Grandma' exercise in Chris Pine's Learn to Program tutorial. [http://pine.fm/LearnToProgram/?Chapter=06](http://pine.fm/LearnToProgram/?Chapter=06)
+### Contributed to by
 
-## Submitting Incomplete Problems
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @0xae
+- @aldraco
+- @atg-abhishek
+- @austinlyons
+- @behrtam
+- @BethanyG
+- @cmccandless
+- @cypher
+- @Dog
+- @etrepum
+- @ikhadykin
+- @janetriley
+- @jremmen
+- @koljakube
+- @kytrinyx
+- @lowks
+- @lucasdpau
+- @miketamis
+- @N-Parsons
+- @patricksjackson
+- @pheanex
+- @sdublish
+- @sjakobi
+- @stonemirror
+- @thenigan
+- @thomasjpfan
+- @tqa236
+- @yawpitch
 
+### Based on
+
+Inspired by the 'Deaf Grandma' exercise in Chris Pine's Learn to Program tutorial. - https://pine.fm/LearnToProgram/?Chapter=06
