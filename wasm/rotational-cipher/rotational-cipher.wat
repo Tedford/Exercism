@@ -11,38 +11,30 @@
   ;; @returns {(i32,i32)} - The offset and length of the ciphertext output in linear memory.
   ;;
   (func (export "rotate") (param $textOffset i32) (param $textLength i32) (param $shiftKey i32) (result i32 i32)
-     (local $i i32)
+    (local $i i32)
     (local $current i32)
-    (local $diff i32)
-    (local.set $current (local.get $textOffset))
-    (loop (i32.lt_u (local.get $i) (local.get $textLength))
+    (loop $loop
 
-      (local.set $current (i32.load8_u (i32.add (local.get $textOfset) (local.get $i))))
+      (local.set $current (i32.load8_u (i32.add (local.get $textOffset) (local.get $i))))
       
      (if (i32.and (i32.ge_u (local.get $current) (i32.const 65)) (i32.lt_u (local.get $current) (i32.const 93)))
-         (then ( 
-            (local.set $diff (i32.sub (local.get $current) (i32.const 65)))
-            (local.set $diff (i32.add (local.get $diff) (local.get $shiftKey)))
-            (local.set $diff (i32.rem_u (local.get $diff) (i32.const 26)))
-            (i32.load8_u (i32.get $current) (local.get $diff))
+         (then  
+            (i32.store8
+            (i32.add (local.get $textOffset) (local.get $i))
+            (i32.add (i32.const 65) (i32.rem_u (i32.add (i32.sub (local.get $current) (i32.const 65)) (local.get $shiftKey)) (i32.const 26))))
+           )
+     (else  (if (i32.and (i32.ge_u (local.get $current) (i32.const 97)) (i32.lt_u (local.get $current) (i32.const 123)))
+         (then  
+            (i32.store8
+            (i32.add (local.get $textOffset) (local.get $i))
+            (i32.add (i32.const 97) (i32.rem_u (i32.add (i32.sub (local.get $current) (i32.const 97)) (local.get $shiftKey)) (i32.const 26))))
            )
        )
-    )
+    ))
 
-     (if (i32.and (i32.ge_u (local.get $current) (i32.const 97)) (i32.lt_u (local.get $current) (i32.const 123)))
-         (then ( 
-            (local.set $diff (i32.sub (local.get $current) (i32.const 97)))
-            (local.set $diff (i32.add (local.get $diff) (local.get $shiftKey)))
-            (local.set $diff (i32.rem_u (local.get $diff) (i32.const 26)))
-            (i32.load8_u (i32.get $current) (local.get $diff))
-           )
-       )
-    )
+      (local.set $i (i32.add (local.get $i) (i32.const 1)))
 
-      (local.get $i)
-      (i32.const 1)
-      (i32.add)
-      (local.set $i)
+      (br_if $loop (i32.lt_u (local.get $i) (local.get $textLength)))
     )
        
     (return (local.get $textOffset) (local.get $textLength))
